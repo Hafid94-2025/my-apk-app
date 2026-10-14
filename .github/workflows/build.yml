@@ -1,10 +1,10 @@
 name: Build APK
 on: [push]
-jobs: 
+jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@V4
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.10"
@@ -19,7 +19,7 @@ jobs:
           pip install --upgrade pip "cython<3.0" wheel "setuptools<70" buildozer
       - name: Build
         env:
-          CLAGS: "-Wno-error=implicit-function-declaration -Wno-error=incompatible-pointer-types"
+          CFLAGS: "-Wno-error=implicit-function-declaration -Wno-error=incompatible-pointer-types" # "-Wno-error=implicit-function-declaration"
         run: buildozer android debug
       - uses: actions/upload-artifact@v4
         with:
